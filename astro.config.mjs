@@ -6,6 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://saascore.com.br',
+  server: {
+    host: '0.0.0.0',
+  },
   adapter: node({
     mode: 'standalone',
   }),
