@@ -130,3 +130,21 @@ export async function deleteLead(id: string): Promise<boolean> {
   fs.writeFileSync(DB_FILE, JSON.stringify(filtered, null, 2), 'utf-8');
   return true;
 }
+
+/**
+ * Exclui todos os leads da base
+ */
+export async function clearAllLeads(): Promise<boolean> {
+  ensureDbFile();
+  fs.writeFileSync(DB_FILE, JSON.stringify([], null, 2), 'utf-8');
+  return true;
+}
+
+/**
+ * Restaura os leads para a lista padrão de demonstração
+ */
+export async function resetToDemoLeads(): Promise<Lead[]> {
+  ensureDbFile();
+  fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_LEADS, null, 2), 'utf-8');
+  return INITIAL_LEADS;
+}

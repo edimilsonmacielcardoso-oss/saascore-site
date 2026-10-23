@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getLeads, createLead, updateLeadStatus, deleteLead } from '../../lib/db';
+import { getLeads, createLead, updateLeadStatus, deleteLead, clearAllLeads, resetToDemoLeads } from '../../lib/db';
 
 export const prerender = false;
 
@@ -123,10 +123,18 @@ export const PATCH: APIRoute = async ({ request }) => {
   }
 };
 
-// DELETE /api/leads - Remove um lead
+// DELETE /api/leads - Remove um lead ou limpa a base
 export const DELETE: APIRoute = async ({ request }) => {
   try {
-    const { id } = await request.json();
+    const { id, clearAll } = await request.json().catch(() => ({}));
+
+    if (clearAll) {
+      await clearAllLeads();
+      return new Response(JSON.stringify({ success: true, message: 'Todos os leads foram removidos com sucesso.' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
     if (!id) {
       return new Response(JSON.stringify({ success: false, error: 'ID é obrigatório.' }), {
@@ -143,6 +151,22 @@ export const DELETE: APIRoute = async ({ request }) => {
     });
   } catch (error) {
     return new Response(JSON.stringify({ success: false, error: 'Erro ao excluir lead.' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};
+
+// PUT /api/leads - Restaura dados de demonstração
+export const PUT: APIRoute = async () => {
+  try {
+    const leads = await resetToDemoLeads();
+    return new Response(JSON.stringify({ success: true, leads }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ success: false, error: 'Erro ao restaurar dados de demonstração.' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
