@@ -1,0 +1,39 @@
+---
+// index.astro - Landing Page Comercial B2B SGEMH Enterprise
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ComplianceBar from '../components/ComplianceBar.astro';
+import Features from '../components/Features.astro';
+import Pricing from '../components/Pricing.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="SaaSCore Sistemas | SGEMH - Gerenciamento Eletrônico de Engenharia Clínica & Gestão de Ativos"
+  description="SGEMH da SaaSCore Sistemas: Gestão inteligente de parque tecnológico, inventário eletrônico de ativos, ciclo de OS, calibração RBC e conformidade ANVISA RDC 665 e RDC 509 para hospitais."
+>
+  <!-- 1. Barra de Navegação Fixa com Blur -->
+  <Header />
+
+  <main class="flex-grow">
+    <!-- 2. Hero Section com Headline de Alto Impacto, Badges e CTAs -->
+    <Hero />
+
+    <!-- 3. Faixa de Credibilidade Regulatória (ANVISA RDC, ABNT, IEC) -->
+    <ComplianceBar />
+
+    <!-- 4. Recursos e Módulos Técnicos Operacionais -->
+    <Features />
+
+    <!-- 5. Modalidades de Contratação e Planos B2B Dimensionados -->
+    <Pricing />
+
+    <!-- 6. Formulário de Qualificação de Leads B2B -->
+    <ContactForm />
+  </main>
+
+  <!-- 7. Rodapé Institucional -->
+  <Footer />
+</Layout>

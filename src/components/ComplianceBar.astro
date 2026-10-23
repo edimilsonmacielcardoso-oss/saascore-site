@@ -1,0 +1,95 @@
+---
+// ComplianceBar.astro - Faixa de credibilidade institucional com normas regulatórias de saúde
+---
+
+<section id="normas" class="relative border-y border-slate-800 bg-slate-900/40 py-12 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">
+        Rigor Técnico & Conformidade Regulatória Internacional
+      </p>
+      <h2 class="mt-2 text-xl font-bold tracking-tight text-white sm:text-2xl">
+        Totalmente alinhado às diretrizes sanitárias e hospitalares vigentes
+      </h2>
+    </div>
+
+    <!-- Grid de Normas -->
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Item 1: RDC 665/2022 -->
+      <div class="group relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-sm transition hover:border-cyan-500/50 hover:bg-slate-900/50">
+        <div class="flex items-center justify-between">
+          <span class="rounded-lg bg-cyan-500/10 px-2.5 py-1 text-xs font-bold text-cyan-400">ANVISA</span>
+          <svg class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-lg font-bold text-white group-hover:text-cyan-300">RDC 665/2022</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Boas Práticas de Fabricação, armazenamento e gerenciamento técnico de dispositivos médicos.
+          </p>
+        </div>
+        <div class="mt-4 flex items-center text-[11px] font-medium text-slate-500">
+          <span class="h-1.5 w-1.5 rounded-full bg-cyan-400 mr-2"></span> Auditoria Pronta
+        </div>
+      </div>
+
+      <!-- Item 2: RDC 509/2021 -->
+      <div class="group relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-sm transition hover:border-cyan-500/50 hover:bg-slate-900/50">
+        <div class="flex items-center justify-between">
+          <span class="rounded-lg bg-blue-500/10 px-2.5 py-1 text-xs font-bold text-blue-400">ANVISA</span>
+          <svg class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300">RDC 509/2021</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Gerenciamento de Tecnologias em Saúde em serviços de saúde com rastreamento integral do ciclo de vida.
+          </p>
+        </div>
+        <div class="mt-4 flex items-center text-[11px] font-medium text-slate-500">
+          <span class="h-1.5 w-1.5 rounded-full bg-blue-400 mr-2"></span> Vigilância Sanitária
+        </div>
+      </div>
+
+      <!-- Item 3: ABNT NBR 15943 -->
+      <div class="group relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-sm transition hover:border-cyan-500/50 hover:bg-slate-900/50">
+        <div class="flex items-center justify-between">
+          <span class="rounded-lg bg-cyan-500/10 px-2.5 py-1 text-xs font-bold text-cyan-400">ABNT</span>
+          <svg class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-lg font-bold text-white group-hover:text-cyan-300">NBR 15943</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Diretrizes para implementação e gestão de programa de equipamentos para a saúde em estabelecimentos assistenciais.
+          </p>
+        </div>
+        <div class="mt-4 flex items-center text-[11px] font-medium text-slate-500">
+          <span class="h-1.5 w-1.5 rounded-full bg-cyan-400 mr-2"></span> Gestão da Qualidade
+        </div>
+      </div>
+
+      <!-- Item 4: IEC 60601-1 -->
+      <div class="group relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-sm transition hover:border-blue-500/50 hover:bg-slate-900/50">
+        <div class="flex items-center justify-between">
+          <span class="rounded-lg bg-blue-500/10 px-2.5 py-1 text-xs font-bold text-blue-400">IEC / ISO</span>
+          <svg class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300">IEC 60601-1</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Normas internacionais para ensaios de segurança elétrica e desempenho essencial de equipamentos eletromédicos.
+          </p>
+        </div>
+        <div class="mt-4 flex items-center text-[11px] font-medium text-slate-500">
+          <span class="h-1.5 w-1.5 rounded-full bg-blue-400 mr-2"></span> Segurança Elétrica
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

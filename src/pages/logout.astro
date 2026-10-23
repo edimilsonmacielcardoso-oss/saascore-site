@@ -1,0 +1,7 @@
+---
+// logout.astro - Encerra a sessão e redireciona para a página de login
+export const prerender = false;
+
+Astro.cookies.delete('saascore_session', { path: '/' });
+return Astro.redirect('/login');
+---

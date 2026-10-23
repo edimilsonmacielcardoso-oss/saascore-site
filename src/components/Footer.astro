@@ -1,0 +1,72 @@
+---
+// Footer.astro - Rodapé institucional SaaSCore Sistemas | SGEMH
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mt-auto border-t border-slate-800/80 bg-slate-950 py-12 text-slate-400">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-12 lg:gap-12">
+      <!-- Coluna Institucional -->
+      <div class="md:col-span-5 flex flex-col space-y-4">
+        <a href="#" class="group flex items-center gap-2.5">
+          <div class="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-cyan-500/30 bg-slate-950/90 shadow-md shadow-cyan-500/20 transition-transform group-hover:scale-105 group-hover:border-cyan-400/50">
+            <img
+              src="/logo-icon.png"
+              alt="SaaSCore Sistemas Logo"
+              class="h-full w-full object-cover"
+              width="36"
+              height="36"
+              loading="lazy"
+            />
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-black tracking-tight text-white">
+              SaaSCore <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">SGEMH</span>
+            </span>
+            <span class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">SaaSCore Sistemas</span>
+          </div>
+        </a>
+        <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+          <strong>SGEMH</strong>: Sistema de Gerenciamento Eletrônico de Engenharia Clínica e Gestão de Ativos. Desenvolvido por <strong>SaaSCore Sistemas</strong> para otimizar a confiabilidade operacional e conformidade sanitária em saúde.
+        </p>
+        <div class="flex items-center gap-2 text-[11px] text-slate-500">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          <span>Sistemas operando em alta disponibilidade (SLA 99.9%)</span>
+        </div>
+      </div>
+
+      <!-- Links Rápidos -->
+      <div class="md:col-span-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white">Navegação</h4>
+        <ul class="mt-4 space-y-2 text-xs">
+          <li><a href="/#recursos" class="transition hover:text-cyan-400">Gestão de Ativos & Inventário</a></li>
+          <li><a href="/#recursos" class="transition hover:text-cyan-400">Ciclo de Ordens de Serviço (OS)</a></li>
+          <li><a href="/#normas" class="transition hover:text-cyan-400">Normas ANVISA & Metrologia</a></li>
+          <li><a href="/#planos" class="transition hover:text-cyan-400">Modalidades de Planos</a></li>
+          <li><a href="/gestao-global" class="text-cyan-400 font-semibold hover:underline">Painel Gestão Global SaaS &rarr;</a></li>
+        </ul>
+      </div>
+
+      <!-- Conformidade & Jurídico -->
+      <div class="md:col-span-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white">Segurança & Conformidade</h4>
+        <ul class="mt-4 space-y-2 text-xs">
+          <li><a href="#" class="transition hover:text-cyan-400">Política de Privacidade & LGPD</a></li>
+          <li><a href="#" class="transition hover:text-cyan-400">Termos de Uso e Serviço</a></li>
+          <li><a href="#" class="transition hover:text-cyan-400">Conformidade ANVISA RDC 665 / RDC 509</a></li>
+          <li><a href="#" class="transition hover:text-cyan-400">Calibração & Rastreabilidade RBC</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Linha Divisória & Direitos Autorais -->
+    <div class="mt-12 flex flex-col items-center justify-between border-t border-slate-800/80 pt-6 text-xs text-slate-500 sm:flex-row">
+      <p>&copy; {currentYear} SaaSCore Sistemas. Todos os direitos reservados.</p>
+      <div class="mt-4 flex items-center space-x-6 sm:mt-0">
+        <span class="text-slate-400 font-medium">SGEMH - Engenharia Clínica & Gestão de Ativos</span>
+        <span class="h-3 w-px bg-slate-800"></span>
+        <span class="text-slate-500">Desenvolvido por SaaSCore Sistemas</span>
+      </div>
+    </div>
+  </div>
+</footer>

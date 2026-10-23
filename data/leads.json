@@ -1,0 +1,46 @@
+[
+  {
+    "id": "lead-mvkaxggd-8go9",
+    "name": "Edimilson Maciel Cardoso",
+    "email": "edimilsonmacielcardoso@gmail.com",
+    "phone": "21975594095",
+    "institution": "sasasasas",
+    "park_size": "ate-100",
+    "message": "sadsasdassaasasasas",
+    "status": "novo",
+    "createdAt": "2026-10-23T01:39:03.181Z"
+  },
+  {
+    "id": "lead-002",
+    "name": "Eng. Amanda Duarte",
+    "email": "amanda.duarte@clinicadiagnos.med.br",
+    "phone": "(21) 98765-1122",
+    "institution": "Clínica Diagnos Imagem & UTI",
+    "park_size": "101-500",
+    "message": "Buscamos solução para controle de ordens de serviço com QR Code e calibração com rastreabilidade RBC.",
+    "status": "novo",
+    "createdAt": "2026-10-23T00:57:54.570Z"
+  },
+  {
+    "id": "lead-001",
+    "name": "Dr. Roberto Silveira",
+    "email": "roberto.silveira@hospitalalvorada.com.br",
+    "phone": "(11) 99876-5432",
+    "institution": "Hospital Geral Alvorada",
+    "park_size": "501-1500",
+    "message": "Precisamos reestruturar o parque para a auditoria ONA Nível 3 que ocorrerá no próximo trimestre.",
+    "status": "agendado",
+    "createdAt": "2026-10-22T22:32:54.570Z"
+  },
+  {
+    "id": "lead-003",
+    "name": "Carlos Eduardo Mendes",
+    "email": "carlos.mendes@redesantavida.com.br",
+    "phone": "(31) 97654-9988",
+    "institution": "Complexo Hospitalar Santa Vida (3 Unidades)",
+    "park_size": "acima-1500",
+    "message": "Interesse no plano Network para unificar a Engenharia Clínica de três hospitais da rede.",
+    "status": "em_contato",
+    "createdAt": "2026-10-22T01:32:54.570Z"
+  }
+]

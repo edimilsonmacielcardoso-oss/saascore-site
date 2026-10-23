@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  /** Título dinâmico da página */
+  title?: string;
+  /** Meta description focada em engenharia clínica e metrologia B2B */
+  description?: string;
+  /** Imagem para preview no WhatsApp, LinkedIn e redes sociais (1200x630 recomendado) */
+  image?: string;
+  /** URL canônica opcional */
+  canonicalURL?: string | URL;
+  /** Tipo de documento Open Graph (padrão: website) */
+  type?: 'website' | 'article';
+  /** Controle de indexação para bots de busca */
+  noindex?: boolean;
+}
+
+const {
+  title = 'SGEMH | Sistema de Gerenciamento Eletrônico de Engenharia Clínica & Gestão de Ativos - SaaSCore Sistemas',
+  description = 'O SGEMH da SaaSCore Sistemas é a plataforma completa para gerenciamento eletrônico de engenharia clínica, gestão de ativos médico-hospitalares, controle de OS, calibração RBC e conformidade com normas ANVISA RDC 665 e RDC 509.',
+  image = '/og-image.png',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url),
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+// Resolução de URL absoluta para compatibilidade com WhatsApp, LinkedIn e Twitter
+const siteOrigin = Astro.site ? Astro.site.origin : Astro.url.origin;
+const resolvedCanonicalUrl = typeof canonicalURL === 'string'
+  ? new URL(canonicalURL, siteOrigin).toString()
+  : canonicalURL.toString();
+
+const resolvedImageUrl = new URL(image, siteOrigin).toString();
+---
+
+<!doctype html>
+<html lang="pt-BR" class="dark scroll-smooth">
+  <head>
+    <!-- Configurações Técnicas & Viewport Responsivo -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="msapplication-TileColor" content="#020617" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/logo-icon.png" />
+
+    <!-- SEO Principal -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={resolvedCanonicalUrl} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+
+    <!-- Open Graph (Essencial para WhatsApp, LinkedIn e Facebook) -->
+    <meta property="og:site_name" content="SaaSCore Sistemas - SGEMH" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={resolvedCanonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedImageUrl} />
+    <meta property="og:image:secure_url" content={resolvedImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- LinkedIn & Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={resolvedCanonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedImageUrl} />
+    <meta name="twitter:image:alt" content={title} />
+
+    <!-- Preconnect / Performance Opcional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-cyan-500 selection:text-slate-950 flex flex-col">
+    <slot />
+  </body>
+</html>

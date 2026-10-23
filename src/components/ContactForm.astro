@@ -1,0 +1,266 @@
+---
+// ContactForm.astro - Formulário de qualificação de leads B2B preparado para Formspree / Webhook HTTP
+interface Props {
+  /** Endpoint HTTP para envio do formulário (padrão: rota interna /api/leads conectada ao Banco de Dados) */
+  endpoint?: string;
+}
+
+const {
+  endpoint = '/api/leads', // Endpoint nativo para persistência no Banco de Dados SaaSCore
+} = Astro.props;
+---
+
+<section id="contato" class="relative py-24 sm:py-32">
+  <!-- Efeito sutil de iluminação no fundo -->
+  <div class="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-96 w-[600px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[130px]"></div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-start">
+      
+      <!-- Coluna da Esquerda: Proposta de Valor B2B -->
+      <div class="lg:col-span-5">
+        <span class="inline-block rounded-full bg-cyan-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-400 border border-cyan-500/20">
+          Atendimento Consultivo • SaaSCore Sistemas
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+          Pronto para implantar o SGEMH na sua instituição?
+        </h2>
+        <p class="mt-4 text-base text-slate-300 leading-relaxed">
+          Nossos consultores da <strong>SaaSCore Sistemas</strong> realizam um diagnóstico preliminar do seu parque tecnológico, mapeando oportunidades imediatas para otimização da Engenharia Clínica e Gestão de Ativos.
+        </p>
+
+        <!-- Benefícios do contato -->
+        <div class="mt-8 space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-white">Demonstração Personalizada</h4>
+              <p class="text-xs text-slate-400">Apresentação adaptada ao porte e perfil clínico do seu hospital.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-white">Checklist de Conformidade RDC</h4>
+              <p class="text-xs text-slate-400">Receba uma matriz de conformidade regulatória para auditorias.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-white">Sigilo & LGPD Garantidos</h4>
+              <p class="text-xs text-slate-400">Seus dados e informações hospitalares protegidos sob termo de confidencialidade.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Card do Formulário -->
+      <div class="lg:col-span-7">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
+          <h3 class="text-xl font-bold text-white">Agendar Demonstração Executiva</h3>
+          <p class="mt-1 text-xs text-slate-400">Preencha os campos abaixo para receber o contato de um consultor em até 2 horas úteis.</p>
+
+          <form id="lead-form" action={endpoint} method="POST" class="mt-8 space-y-5">
+            <!-- Linha 1: Nome Completo -->
+            <div>
+              <label for="name" class="block text-xs font-semibold text-slate-300">
+                Nome Completo <span class="text-cyan-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                minlength="3"
+                placeholder="Ex: Dra. Juliana Menezes"
+                class="mt-1.5 w-full rounded-lg border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+            </div>
+
+            <!-- Linha 2: E-mail Corporativo & Telefone -->
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div>
+                <label for="email" class="block text-xs font-semibold text-slate-300">
+                  E-mail Corporativo <span class="text-cyan-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="nome@hospital.com.br"
+                  class="mt-1.5 w-full rounded-lg border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                />
+              </div>
+
+              <div>
+                <label for="phone" class="block text-xs font-semibold text-slate-300">
+                  Telefone / WhatsApp <span class="text-cyan-400">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  placeholder="(11) 98765-4321"
+                  class="mt-1.5 w-full rounded-lg border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                />
+              </div>
+            </div>
+
+            <!-- Linha 3: Instituição / Hospital -->
+            <div>
+              <label for="institution" class="block text-xs font-semibold text-slate-300">
+                Instituição / Hospital / Clínica <span class="text-cyan-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="institution"
+                name="institution"
+                required
+                placeholder="Ex: Hospital Santa Clara ou Rede de Diagnósticos"
+                class="mt-1.5 w-full rounded-lg border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+            </div>
+
+            <!-- Linha 4: Porte do Parque Tecnológico -->
+            <div>
+              <label for="park_size" class="block text-xs font-semibold text-slate-300">
+                Porte do Parque Tecnológico (Equipamentos) <span class="text-cyan-400">*</span>
+              </label>
+              <select
+                id="park_size"
+                name="park_size"
+                required
+                class="mt-1.5 w-full rounded-lg border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm text-white transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              >
+                <option value="" disabled selected class="text-slate-500">Selecione o número aproximado de ativos...</option>
+                <option value="ate-100">Até 100 equipamentos (Clínicas e Hospitais de Pequeno Porte)</option>
+                <option value="101-500">101 a 500 equipamentos (Médio Porte)</option>
+                <option value="501-1500">501 a 1.500 equipamentos (Grande Porte / Hospital Geral)</option>
+                <option value="acima-1500">Acima de 1.500 equipamentos (Redes Hospitalares & Complexos Médicos)</option>
+              </select>
+            </div>
+
+            <!-- Mensagem opcional -->
+            <div>
+              <label for="message" class="block text-xs font-semibold text-slate-300">
+                Mensagem ou Desafio Principal (Opcional)
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                placeholder="Conte-nos brevemente suas principais prioridades (ex: auditoria ONA próxima, implantação de OS, calibração em lote)..."
+                class="mt-1.5 w-full rounded-lg border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button
+              id="submit-btn"
+              type="submit"
+              class="w-full rounded-xl bg-cyan-500 py-3.5 px-6 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/25 transition-all hover:bg-cyan-400 hover:shadow-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 active:scale-[0.99] flex items-center justify-center gap-2"
+            >
+              <span id="btn-text">Solicitar Contato de Especialista</span>
+              <svg id="btn-icon" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+
+            <!-- Mensagem de Feedback -->
+            <div id="form-feedback" class="hidden rounded-lg p-3 text-center text-xs font-medium"></div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  const feedback = document.getElementById('form-feedback');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btn-text');
+
+  if (form && feedback && submitBtn && btnText) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Feedback visual de carregamento
+      submitBtn.disabled = true;
+      btnText.textContent = 'Enviando dados...';
+      feedback.className = 'hidden';
+
+      const formData = new FormData(form);
+      const leadPayload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        institution: formData.get('institution'),
+        park_size: formData.get('park_size'),
+        message: formData.get('message'),
+        createdAt: new Date().toISOString(),
+      };
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: JSON.stringify(leadPayload),
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        });
+
+        const data = await response.json().catch(() => null);
+
+        // Backup local garantido
+        try {
+          const currentLocal = JSON.parse(localStorage.getItem('saascore_leads') || '[]');
+          currentLocal.unshift({
+            id: 'local-' + Date.now(),
+            ...leadPayload,
+            status: 'novo',
+          });
+          localStorage.setItem('saascore_leads', JSON.stringify(currentLocal));
+        } catch (_) {}
+
+        if (response.ok && data?.success) {
+          feedback.innerHTML = `
+            <div class="flex items-center justify-between gap-2">
+              <span>Solicitação gravada com sucesso no banco de dados!</span>
+              <a href="/gestao-global" class="underline font-bold text-cyan-300 hover:text-white shrink-0">Ver em Gestão Global SaaS &rarr;</a>
+            </div>
+          `;
+          feedback.className = 'block rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 text-xs font-medium';
+          form.reset();
+        } else {
+          throw new Error(data?.error || 'Falha no envio');
+        }
+      } catch (err) {
+        feedback.innerHTML = `
+          <div class="flex items-center justify-between gap-2">
+            <span>Lead gravado localmente!</span>
+            <a href="/gestao-global" class="underline font-bold text-cyan-300 hover:text-white shrink-0">Acessar Gestão Global &rarr;</a>
+          </div>
+        `;
+        feedback.className = 'block rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 p-3 text-xs font-medium';
+        form.reset();
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = 'Solicitar Contato de Especialista';
+      }
+    });
+  }
+</script>

@@ -1,0 +1,176 @@
+---
+// login.astro - Tela de Autenticação Segura para Gestão Global SaaS
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = false;
+
+let errorMessage = '';
+
+if (Astro.request.method === 'POST') {
+  try {
+    const formData = await Astro.request.formData();
+    const email = formData.get('email')?.toString().trim();
+    const password = formData.get('password')?.toString();
+
+    // Validação de credenciais do Superadmin
+    if (email === 'edimilsonmacielcardoso@gmail.com' && password === '123456') {
+      Astro.cookies.set('saascore_session', 'auth_edimilson_maciel', {
+        path: '/',
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 7, // Mantém conectado por 7 dias
+        sameSite: 'lax',
+      });
+      return Astro.redirect('/gestao-global');
+    } else {
+      errorMessage = 'E-mail ou senha incorretos. Verifique suas credenciais de acesso.';
+    }
+  } catch (err) {
+    errorMessage = 'Erro ao processar login. Tente novamente.';
+  }
+}
+
+// Se o usuário já possuir sessão válida, redireciona diretamente ao painel
+if (Astro.cookies.get('saascore_session')?.value === 'auth_edimilson_maciel') {
+  return Astro.redirect('/gestao-global');
+}
+---
+
+<Layout
+  title="Acesso Restrito | Gestão Global SaaS - SaaSCore Sistemas"
+  description="Área de login corporativo restrita a gestores e administradores da SaaSCore Sistemas."
+  noindex={true}
+>
+  <div class="relative flex min-h-screen flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Efeitos de iluminação de fundo (Glows sutis cyan & blue) -->
+    <div class="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[500px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[130px]"></div>
+    <div class="pointer-events-none absolute bottom-10 right-10 -z-10 h-[350px] w-[400px] rounded-full bg-blue-600/10 blur-[120px]"></div>
+
+    <!-- Card de Login -->
+    <div class="w-full max-w-md space-y-8 rounded-2xl border border-slate-800 bg-slate-900/70 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
+      
+      <!-- Cabeçalho do Card com Logo -->
+      <div class="text-center">
+        <a href="/" class="inline-flex items-center gap-3 group">
+          <div class="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950/90 shadow-xl shadow-cyan-500/25 transition-transform group-hover:scale-105 group-hover:border-cyan-400/50">
+            <img
+              src="/logo-icon.png"
+              alt="SaaSCore Sistemas Logo"
+              class="h-full w-full object-cover"
+              width="56"
+              height="56"
+              loading="eager"
+            />
+          </div>
+        </a>
+
+        <div class="mt-4 flex items-center justify-center gap-2">
+          <span class="text-xl font-black tracking-tight text-white">SaaSCore</span>
+          <span class="rounded bg-cyan-500/20 px-2 py-0.5 text-[10px] font-bold text-cyan-300 border border-cyan-500/30">
+            Sistemas
+          </span>
+        </div>
+        <h2 class="mt-2 text-2xl font-bold tracking-tight text-white">
+          Gestão Global SaaS
+        </h2>
+        <p class="mt-1 text-xs text-slate-400">
+          Autenticação restrita para controle de leads e governança do SGEMH.
+        </p>
+      </div>
+
+      <!-- Mensagem de Erro (se houver) -->
+      {errorMessage && (
+        <div class="rounded-lg bg-rose-500/10 border border-rose-500/30 p-3 text-center text-xs font-semibold text-rose-400">
+          {errorMessage}
+        </div>
+      )}
+
+      <!-- Formulário de Autenticação -->
+      <form method="POST" class="mt-6 space-y-5">
+        <div>
+          <label for="email" class="block text-xs font-semibold text-slate-300">
+            E-mail Administrativo
+          </label>
+          <div class="relative mt-1.5">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              value="edimilsonmacielcardoso@gmail.com"
+              class="w-full rounded-lg border border-slate-700 bg-slate-950/80 pl-10 pr-4 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              placeholder="seu.email@empresa.com"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-xs font-semibold text-slate-300">
+            Senha de Acesso
+          </label>
+          <div class="relative mt-1.5">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              autocomplete="current-password"
+              class="w-full rounded-lg border border-slate-700 bg-slate-950/80 pl-10 pr-10 py-3 text-sm text-white placeholder-slate-500 transition focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              placeholder="••••••••"
+            />
+            <button
+              type="button"
+              id="toggle-password"
+              class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-slate-300"
+            >
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full rounded-xl bg-cyan-500 py-3 px-4 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:bg-cyan-400 hover:shadow-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 active:scale-[0.99]"
+        >
+          Entrar na Gestão Global
+        </button>
+      </form>
+
+      <!-- Rodapé do Card com Link de Retorno -->
+      <div class="border-t border-slate-800/80 pt-4 text-center">
+        <a href="/" class="text-xs text-slate-400 hover:text-cyan-400 transition flex items-center justify-center gap-1.5">
+          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Voltar à Página Principal
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const toggleBtn = document.getElementById('toggle-password');
+  const passwordInput = document.getElementById('password') as HTMLInputElement | null;
+
+  if (toggleBtn && passwordInput) {
+    toggleBtn.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+    });
+  }
+</script>

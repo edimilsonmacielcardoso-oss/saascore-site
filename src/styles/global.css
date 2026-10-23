@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-dark-bg: #020617;
+  --color-primary: #06b6d4;
+  --color-secondary: #2563eb;
+}
