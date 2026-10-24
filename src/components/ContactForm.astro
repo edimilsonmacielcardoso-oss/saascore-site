@@ -225,17 +225,6 @@ const {
 
         const data = await response.json().catch(() => null);
 
-        // Backup local garantido
-        try {
-          const currentLocal = JSON.parse(localStorage.getItem('saascore_leads') || '[]');
-          currentLocal.unshift({
-            id: 'local-' + Date.now(),
-            ...leadPayload,
-            status: 'novo',
-          });
-          localStorage.setItem('saascore_leads', JSON.stringify(currentLocal));
-        } catch (_) {}
-
         if (response.ok && data?.success) {
           feedback.innerHTML = `
             <div class="flex items-center justify-between gap-2">

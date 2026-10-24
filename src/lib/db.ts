@@ -17,8 +17,11 @@ export interface Lead {
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.resolve(DATA_DIR, 'leads.json');
 
-// Leads iniciais de demonstração (seed inicial para o painel não ficar vazio)
-const INITIAL_LEADS: Lead[] = [
+// Leads iniciais padrão (base limpa vazia para produção)
+const INITIAL_LEADS: Lead[] = [];
+
+// Leads opcionais de demonstração clínica
+const DEMO_LEADS: Lead[] = [
   {
     id: 'lead-001',
     name: 'Dr. Roberto Silveira',
@@ -28,7 +31,7 @@ const INITIAL_LEADS: Lead[] = [
     park_size: '501-1500',
     message: 'Precisamos reestruturar o parque para a auditoria ONA Nível 3 que ocorrerá no próximo trimestre.',
     status: 'agendado',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), // 3 horas atrás
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
   },
   {
     id: 'lead-002',
@@ -39,7 +42,7 @@ const INITIAL_LEADS: Lead[] = [
     park_size: '101-500',
     message: 'Buscamos solução para controle de ordens de serviço com QR Code e calibração com rastreabilidade RBC.',
     status: 'novo',
-    createdAt: new Date(Date.now() - 1000 * 60 * 35).toISOString(), // 35 minutos atrás
+    createdAt: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
   },
   {
     id: 'lead-003',
@@ -50,7 +53,7 @@ const INITIAL_LEADS: Lead[] = [
     park_size: 'acima-1500',
     message: 'Interesse no plano Network para unificar a Engenharia Clínica de três hospitais da rede.',
     status: 'em_contato',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 dia atrás
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
   },
 ];
 
@@ -145,6 +148,6 @@ export async function clearAllLeads(): Promise<boolean> {
  */
 export async function resetToDemoLeads(): Promise<Lead[]> {
   ensureDbFile();
-  fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_LEADS, null, 2), 'utf-8');
-  return INITIAL_LEADS;
+  fs.writeFileSync(DB_FILE, JSON.stringify(DEMO_LEADS, null, 2), 'utf-8');
+  return DEMO_LEADS;
 }

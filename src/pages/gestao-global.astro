@@ -271,7 +271,8 @@ CREATE INDEX IF NOT EXISTS idx_leads_status ON public.leads(status);
         <svg class="mx-auto h-12 w-12 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        <p class="mt-4 text-sm font-medium text-slate-400">Nenhum lead encontrado para este filtro.</p>
+        <p class="mt-4 text-sm font-semibold text-slate-300">Nenhum lead cadastrado no momento.</p>
+        <p class="mt-1 text-xs text-slate-500">Novos contatos solicitados através do portal SGEMH aparecerão aqui em tempo real.</p>
       </div>
     </div>
   </main>
@@ -294,23 +295,10 @@ CREATE INDEX IF NOT EXISTS idx_leads_status ON public.leads(status);
   const btnCleanTests = document.getElementById('btn-clean-tests');
   const btnResetDemo = document.getElementById('btn-reset-demo');
 
-  // Mesclar leads salvos em localStorage caso existam (purga testes inválidos)
-  function loadAndMergeLocalLeads() {
+  // Purga definitiva de resíduos locais de testes no navegador
+  function purgeLegacyLocalStorage() {
     try {
-      const local = JSON.parse(localStorage.getItem('saascore_leads') || '[]');
-      if (Array.isArray(local) && local.length > 0) {
-        // Purga registros de teste inválidos como "sasasasas"
-        const filtered = local.filter((l) => l.institution !== 'sasasasas' && l.name !== 'sasasasas');
-        if (filtered.length !== local.length) {
-          localStorage.setItem('saascore_leads', JSON.stringify(filtered));
-        }
-
-        filtered.forEach((localLead) => {
-          if (!allLeads.some((l) => (l.id && l.id === localLead.id) || (l.email === localLead.email && l.institution === localLead.institution))) {
-            allLeads.unshift(localLead);
-          }
-        });
-      }
+      localStorage.removeItem('saascore_leads');
     } catch (_) {}
   }
 
@@ -546,7 +534,7 @@ CREATE INDEX IF NOT EXISTS idx_leads_status ON public.leads(status);
       const data = await res.json();
       if (data?.leads) {
         allLeads = data.leads;
-        loadAndMergeLocalLeads();
+        purgeLegacyLocalStorage();
         updateMetrics();
         renderTable();
       }
@@ -641,7 +629,7 @@ CREATE INDEX IF NOT EXISTS idx_leads_status ON public.leads(status);
   });
 
   // Inicialização
-  loadAndMergeLocalLeads();
+  purgeLegacyLocalStorage();
   updateMetrics();
   renderTable();
 </script>
